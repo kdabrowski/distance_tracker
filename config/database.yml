@@ -1,0 +1,11 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+
+development:
+  database: distance_tracker_development
+  <<: *default
+
+test:
+  database: distance_tracker_test
+  <<: *default
