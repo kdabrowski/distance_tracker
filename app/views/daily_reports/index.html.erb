@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-2">
+      <h4> Day</h4>
+    </div>
+    <div class="col-md-3">
+      <h4>Distance Aggregated</h4>
+    </div>
+    <div class="col-md-2">
+      <h4>Average Distance</h4>
+    </div>
+    <div class="col-md-2">
+      <h4>Average Price</h4>
+    </div>
+    <div class="col-md-2">
+      <h4>Taxis</h4>
+    </div>
+  </div>
+    <% if @daily_reports.any? %>
+      <%= render @daily_reports %>
+    <% else %>
+      <div class="col-md-5">
+        <h5>There are no trips saved yet</h5>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-1">
+      <%= link_to "Add trip", new_trip_path, class: "btn btn-primary" %>
+    </div>
+    <div class="col-md-1">
+      <%= link_to "My Trips", trips_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>

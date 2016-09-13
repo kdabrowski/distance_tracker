@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913163152) do
+ActiveRecord::Schema.define(version: 20160918160625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ar_internal_metadata", primary_key: "key", id: :string, force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.string   "start_address"
+    t.string   "destination_address"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.float    "cost"
+    t.float    "distance"
+    t.string   "transport_type"
+    t.index ["user_id"], name: "index_trips_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -33,5 +51,18 @@ ActiveRecord::Schema.define(version: 20160913163152) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
+
+  add_foreign_key "trips", "users"
+
+  create_view :daily_reports,  sql_definition: <<-SQL
+      SELECT trips.user_id,
+      date(trips.created_at) AS day,
+      avg(trips.cost) AS average_cost,
+      avg(trips.distance) AS average_distance,
+      sum(trips.distance) AS sum_distance,
+      array_agg(trips.transport_type) AS transport_types
+     FROM trips
+    GROUP BY (date(trips.created_at)), trips.user_id;
+  SQL
 
 end

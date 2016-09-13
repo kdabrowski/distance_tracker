@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-2">
+    <p> <%= daily_report.day %> </p>
+  </div>
+  <div class="col-md-3">
+    <p><%= daily_report.sum_distance %></p>
+  </div>
+  <div class="col-md-2">
+    <p><%= daily_report.average_distance %></p>
+  </div>
+  <div class="col-md-2">
+    <p><%= daily_report.average_cost %></p>
+  </div>
+  <div class="col-md-2">
+    <p><%= transport_type_presenter(daily_report.transport_types) %></p>
+  </div>
+</div>

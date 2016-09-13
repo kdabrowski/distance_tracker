@@ -1,0 +1,7 @@
+<%= simple_form_for(@trip, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.input :start_address, label: "Enter start address", placeholder: "Street, City, Country"%>
+  <%= f.input :destination_address, label: "Enter destination address", placeholder: "Street, City, Country" %>
+  <%= f.input :cost, label: "Enter cost" %>
+  <%= f.input :transport_type, collection: Trip.transport_options, label: "Select transport_type" %>
+  <%= f.submit %>
+<% end %>

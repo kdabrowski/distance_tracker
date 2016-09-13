@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'user#show'
+  root 'trips#index'
 
-  resource :user, only: [:show]
+  resources :trips, only: %w(index create new)
+  resources :daily_reports, only: %w(index)
 end
